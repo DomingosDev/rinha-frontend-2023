@@ -66,7 +66,7 @@ export default class RenderComponent extends Component{
   update( base, {payload}){
     const size = payload.size;
     const height = line_height * size;
-    this.current_size = base.node.clientHeight - base.element('title').node.clientHeight;
+    this.current_size = base.node.clientHeight;
     base.element('main').node.dataset['height'] = height;
     this.render(base);
     const percent = Math.floor(payload.loaded / payload.total * 100) ;
@@ -74,8 +74,14 @@ export default class RenderComponent extends Component{
   }
 
   async render(base){
-    const init = this.current_line ;
-    const quantity = Math.ceil(this.current_size / line_height);
+
+    const viewport = Math.ceil(this.current_size / line_height);
+    const middle = Math.floor(viewport / 2)
+    let   init = this.current_line - middle;
+    if(init < 0){ init = 0 }
+    const end  = init + viewport + 1;
+    const quantity = end - init;
+
     const lines = Array.from(db.get('lines', {quantity, init}));
 
     if(!this.current_line){
@@ -106,7 +112,8 @@ export default class RenderComponent extends Component{
 
   scroll(base, element, event){
     const top = Math.abs((event.payload)? event.payload.top : element.node.scrollTop);
-    this.current_line = Math.floor(top / line_height);
+
+    this.current_line = Math.floor(top / line_height / 2);
     this.render(base);
   }
 

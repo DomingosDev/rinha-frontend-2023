@@ -49,7 +49,7 @@ export const app = {
   file: '',
   _count: 0,
   pointer: 0,
-  buffer : new ArrayBuffer( 0 )
+  start_time: 0
 };
 
 window.app = app;
@@ -66,6 +66,7 @@ async function processFile({payload}){
   performance.mark('Process File');
   db.init(payload.file);
   app.file = payload.file;
+  app.start_time = +new Date
 
   processChunk(payload.file)
 
@@ -112,23 +113,19 @@ async function processChunk(file){
 }
 
 async function done(){
-  db.fixSizes('lines');
-  db.fixSizes('config');
+  await db.fixSizes('lines');
+  await db.fixSizes('config');
+
   if(app.has_error){
     console.log( 'Processo corrompido' );
   }
 
-  performance.mark('Process File');
-
-  let time = performance.getEntriesByName('Process File')
-              .map(item=>item.startTime)
-              .reverse()
-              .reduce((a,b)=>a-b);
+  const time = (+new Date) - app.start_time;
 
   emit('done@render', {size:app.line_count});
   emit('success@toast',{
     title:`File has been fully loaded (${formatTime(time)})`,
-    subtitle:'Starting row validation'
+    // subtitle:'Starting row validation'
   })
 }
 
@@ -143,7 +140,7 @@ function formatTime(ms){
   }
 
   let minutes = seconds / 60;
-  if( time < 60 ){
+  if( minutes < 60 ){
     return minutes.toFixed(2).concat('m')
   }
 

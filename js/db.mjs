@@ -14,7 +14,7 @@ export function init(file){
   state.estimated_size = Math.floor(file.size / 160) * 16
 }
 
-export function fixSizes(key, type=Uint32Array){
+export async function fixSizes(key, type=Uint32Array){
     let buffer = new ArrayBuffer(count[key] * type.BYTES_PER_ELEMENT);
     let a = new type( buffer );
     let b = new type( database[key], 0, count[key]);
@@ -50,14 +50,19 @@ export function get(table, props={quantity:1000, init:0, filter:(item) => item},
     return console.error('Database not found')
   }
 
-  const max = database[table].byteLength/type.BYTES_PER_ELEMENT;
+  let init = props.init*type.BYTES_PER_ELEMENT;
+  if(init < 0){
+    init = 0;
+  }
+
+  const max = database[table].byteLength / type.BYTES_PER_ELEMENT - init;
 
   let quantity = props.quantity;
   if(quantity > max){
-    quantity = max - props.init;
+    quantity = max;
   }
 
-  return new type(database[table], props.init*type.BYTES_PER_ELEMENT, quantity);
+  return new type(database[table], init, quantity);
 }
 
 export function mergeBuffers(A, B, type=Uint32Array){

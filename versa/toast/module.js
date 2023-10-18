@@ -12,13 +12,25 @@ export default class ToastComponent extends Component{
 	}
 
 	showSuccessToast(base, {payload}){
-		console.log( base, payload );
 		let toast = this.createToast(payload);
 		base.node.appendChild(toast.node)
 		toast
 			.state('success', true)
 			.state('active', true)
 		;
+		
+		setTimeout(
+			() => {
+				toast.state('active', false)
+				setTimeout(
+					() => {
+						toast.node.remove();
+					}, 
+					200
+				)
+			},
+			1500
+		)
 	}
 
 	createToast(data){

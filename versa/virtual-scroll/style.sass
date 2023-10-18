@@ -1,0 +1,32 @@
+.virtual-scroll
+	position: relative
+	--vscroll-top: 0px
+
+	&__target
+		//transform: translateY(var(--vscroll-top))
+		transition: transform 300ms ease-out
+
+	&__bar
+		position: absolute
+		top: 0
+		right: 0
+		width: 12px
+		height: 100%
+		transition: background 150ms ease-out 150ms
+		&:hover
+			background: #202B2F
+			transition: background 300ms ease-out
+			.virtual-scroll__button
+				width: 6px
+				left:  3px
+				transition: width 300ms ease-out 150ms, left 300ms ease-out 150ms
+	&__button
+		width: 3px
+		min-height: 15px
+		border-radius: 6px
+		background: #7E8182
+		position: relative
+		left: 8px
+		transition: left 150ms ease-out, width 150ms ease-out
+		&.is-active
+			background: #00DCD7

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>JSON Tree Viewer</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="render" data-component="render">
+    <div class="virtual-scroll" data-component="virtual-scroll">
+      <div class="render__wrapper">
+          <div class="render__title-wrapper">
+            <svg class="render__loading" viewBox="25 25 50 50" width=24 height=24>
+              <circle class="render__loading-line" cx="50" cy="50" r="20" fill="none" stroke="#70c542" stroke-width="2" />
+            </svg>
+            <span class="render__title"></span>
+            <span class="render__file-size"></span>
+          </div>
+          <div class="render__main virtual-scroll__target"></div>
+      </div>
+      <div class="virtual-scroll__bar">
+        <div class="virtual-scroll__button"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loader" data-component="loader">
+    <h1 class="loader__title" tabindex="1">JSON Tree Viewer</h1>
+    <div class="loader__subtitle" tabindex="2">Simple JSON Viewer that runs completely on-client. No data exchange</div>
+    <label class="loader__button">
+      <span class="loader__button-title">Load JSON</span>
+      <input name="file" type="file" class="loader__input" tabindex="3">
+    </label>
+  </div>
+
+  <script type="importmap">
+      {
+          "imports": {
+            "Component": "https://cdn.jsdelivr.net/gh/versa-js/versa@v0.0.7/dist/versa.js",
+            "https://cdn.jsdelivr.net/versa/" : "/versa/",
+            "app" : "/js/app.mjs",
+            "db" : "/js/db.mjs"
+          }
+      }
+  </script>
+  <script type="module">
+    /*
+      Os módulos importados serão carregados em paralelo pelo navegador quando em HTTPS/HTTP2
+      Não exceda o máximo de 5 imports, caso exceda alguns navegadores faram o loading em 2 ou mais requisições
+    */
+    import app from 'app'
+    import Component from 'Component'
+  </script>
+
+  <div class="toast" data-component="toast"></div>
+
+  
+</body>
+</html>

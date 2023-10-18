@@ -1,0 +1,18 @@
+{
+  "name": "rinha",
+  "version": "0.0.1",
+  "description": "Rinha de frontend",
+  "author": "Henrique Domingos",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server --port 8090",
+    "generate": "node gen json/obj.100mb.json 100m ; node gen json/array.200mb.json 200m --array ; node gen json/obj.300mb.json 300m ; node gen json/array.400mb.json 400m --array ; node gen json/obj.500mb.json 500m ; node gen json/obj.500mb-complex.json 500m --nested 4 --max-max_connections=13 ; node gen json/array.1gb.json 1g --array ; node gen json/obj.2gb.json 2g ; node gen json/array.3gb.json 3g --array ; node gen json/obj.4gb.json 4g ; node gen json/array.5gb.json 5g --array --max-max_connections=30 ; node gen json/obj.6gb.json 6g ; node gen json/array.7gb.json 7g --array ; node gen json/obj.8gb.json 8g ; node gen json/array.9gb.json 9g --array ; node gen json/obj.10gb.json 10g ; node gen json/array.20gb.json 20g --array ; echo 'Arquivos de teste criados na pasta JSON'"
+  },
+  "author": "Henrique Domingos ( DomingosDev )",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^8.1.0",
+    "sass": "^1.69.1"
+    "http-server": "^14.1.1"
+  }
+}

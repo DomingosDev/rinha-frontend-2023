@@ -1,0 +1,69 @@
+.render
+  height: 100vh
+  display: flex
+  opacity: 0
+  overflow: hidden
+
+  &__loading,
+  &__file-size,
+  &__title
+    display: inline-block
+
+  &__loading
+    width: 32px
+    height: 32px
+    &-line
+      stroke-dasharray: 150, 200
+      stroke-dashoffset: 150
+      transform: rotate(90deg)
+      transform-origin: 50px 50px
+      position: relative
+
+  &__title
+    color: #000
+    font-size: 32px
+    font-weight: 700
+    line-height: normal
+
+  &__file-size
+    color: #BFBFBF
+    font-size: 16px
+
+  &__item
+    display: flex
+    align-items: center
+
+    &-ident
+      background: repeating-linear-gradient(90deg, transparent, transparent 4px, #BFBFBF 4px, #BFBFBF 5px, transparent 1px, transparent 20px)
+
+    &-contents,
+    &-info
+      flex: 1 1 auto
+
+    &-contents
+      max-width: 638px
+      width: 100%
+      display: flex
+
+    &-name
+      color: #4E9590
+    
+    &-decoration
+      color: #F2CAB8
+      font-weight: 700
+    
+    &.is-muted
+      color: #BFBFBF
+
+
+  &.is-active
+    opacity: 1
+
+  &__wrapper
+    //max-width: 638px;
+    overflow: hidden
+    width: 100vw
+    max-width: 100vw
+    //background: repeating-linear-gradient(#e66465, #e66465 26px, #9198e5 26px, #9198e5 28px)
+  &__buffer
+    min-height: 200vh 
